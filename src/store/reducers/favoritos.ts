@@ -1,5 +1,5 @@
-import { Produto } from '../../App'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { Produto } from '../../App'
 
 type FavoritosState = {
   itens: Produto[]
@@ -15,14 +15,12 @@ const favoritosSlice = createSlice({
   reducers: {
     favoritar: (state, action: PayloadAction<Produto>) => {
       const favorito = action.payload
-
       if (state.itens.find((p) => p.id === favorito.id)) {
-        const favoritosSemProduto = state.itens.filter(
-          (p) => p.id !== favorito.id
-        )
+        state.itens = state.itens.filter((p) => p.id !== favorito.id)
         return
       } else {
         state.itens.push(favorito)
+        return
       }
     }
   }
